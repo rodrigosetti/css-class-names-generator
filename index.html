@@ -1,53 +1,131 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
   <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Css-class-names-generator by rodrigosetti</title>
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-    <script src="javascripts/main.js"></script>
-    <!--[if lt IE 9]>
-      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CSS Class Names Generator</title>
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
   </head>
   <body>
-
-      <header>
-        <h1>Css-class-names-generator</h1>
-        <p>CSS Class Names Generator</p>
-      </header>
-
-      <div id="banner">
-        <span id="logo"></span>
-
-        <a href="https://github.com/rodrigosetti/css-class-names-generator" class="button fork"><strong>View On GitHub</strong></a>
-        <div class="downloads">
-          <span>Downloads:</span>
-          <ul>
-            <li><a href="https://github.com/rodrigosetti/css-class-names-generator/zipball/master" class="button">ZIP</a></li>
-            <li><a href="https://github.com/rodrigosetti/css-class-names-generator/tarball/master" class="button">TAR</a></li>
-          </ul>
-        </div>
-      </div><!-- end banner -->
-
-    <div class="wrapper">
-      <nav>
-        <ul></ul>
-      </nav>
-      <section>
-        <h1>
-<a name="the-css-class-name-generator" class="anchor" href="#the-css-class-name-generator"><span class="octicon octicon-link"></span></a>The CSS Class Name Generator</h1>
-      </section>
-      <footer>
-        <p>Project maintained by <a href="https://github.com/rodrigosetti">rodrigosetti</a></p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></small></p>
-      </footer>
+  <a href="https://github.com/rodrigosetti/css-class-names-generator/tree/gh-pages"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://camo.githubusercontent.com/567c3a48d796e2fc06ea80409cc9dd82bf714434/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_darkblue_121621.png"></a>
+    <div class="container">
+      <div class="page-header text-center">
+        <h1>The CSS Class Names Generator</h1>
+      </div>
+      <div class="row text-center">
+        <pre>
+          <h2 id="result-place">click "generate"</h2>
+        </pre>
+      </div>
+      <div class="row text-center">
+        <button id="generate-btn" type="button" class="btn btn-primary btn-lg">Generate</button>
+      </div>
     </div>
-    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
-    
   </body>
+  <script>
+    var adjectives = [ "visible"
+                      ,"collapsible"
+                      ,"rounded"
+                      ,"progressive"
+                      ,"big"
+                      ,"large"
+                      ,"small"
+                      ,"closable"
+                      ,"movable"
+                      ,"scalable"
+                      ,"rotational"
+                      ,"invisible"
+                      ,"parent"
+                      ,"child"
+                      ,"grandparent"
+                      ,"editable"
+                      ,"headerless"
+                      ,"advanced"
+                      ,"meta"
+                      ,"retractable"
+                      ,"scrollable"
+                      ,"teaser"
+                      ,"navigation"
+                      ,"double"
+                      ,"triple"
+                      ,"guided"
+                      ,"main"
+                      ,"faceted"
+                      ,"sorted"
+                      ,"customizable"
+                      ,"centered"
+                      ,"liquid"
+                      ,"alternating"
+                      ,"alternative" ];
+    var substantives = [ "sorter"
+                        ,"error"
+                        ,"autocomplete"
+                        ,"collector"
+                        ,"filter"
+                        ,"entry"
+                        ,"area"
+                        ,"wizard"
+                        ,"overlay"
+                        ,"results"
+                        ,"collection"
+                        ,"button"
+                        ,"panel"
+                        ,"window"
+                        ,"modal"
+                        ,"carousel"
+                        ,"popup"
+                        ,"menu"
+                        ,"sidebar"
+                        ,"topbar"
+                        ,"accordion"
+                        ,"card"
+                        ,"popover"
+                        ,"toolbar"
+                        ,"alert"
+                        ,"table"
+                        ,"view"
+                        ,"modal"
+                        ,"indicator"
+                        ,"info"
+                        ,"label"
+                        ,"picker"
+                        ,"switch"
+                        ,"field"
+                        ,"dialog"
+                        ,"content" ];
+    var nAdjetives    = adjectives.length;
+    var nSubstantives = substantives.length;
+    var resultElement = document.getElementById("result-place");
+    document.getElementById("generate-btn").onclick = function () {
+        var numberOfAdjetives    = Math.floor(Math.random() * 3) + 1;
+        var numberOfSubstantives = Math.floor(Math.random() * 3) + 1;
+        var adjetivesIndexes     = [];
+        var substantivesIndexes  = [];
+        var i, randomIndex;
+
+        for (i = 0; i < numberOfAdjetives; i++) {
+            while (true) {
+                randomIndex = Math.floor(Math.random() * nAdjetives);
+                if (adjetivesIndexes.indexOf(randomIndex) === -1) {
+                    adjetivesIndexes.push(randomIndex);
+                    break;
+                }
+            }
+        }
+
+        for (i = 0; i < numberOfSubstantives; i++) {
+            while (true) {
+                randomIndex = Math.floor(Math.random() * nSubstantives);
+                if (substantivesIndexes.indexOf(randomIndex) === -1) {
+                    substantivesIndexes.push(randomIndex);
+                    break;
+                }
+            }
+        }
+
+        resultElement.innerText =    adjetivesIndexes.map(function(i) { return   adjectives[i]; }).join("-") + "-" + 
+                                  substantivesIndexes.map(function(i) { return substantives[i]; }).join("-");
+    };
+  </script>
 </html>
